@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     public BigDecimal amount;
 
     public Transaction lastTransaction;
+    private String merchantIdentifier = "5f542f94-aa7e-410c-b5ec-507466f7179d";
+    private String merchantSecretKey = "wI3r27W6K3F6bdvTzFsGSGr8lzNEXdiM";
 
 
     @Override
@@ -39,8 +41,13 @@ public class MainActivity extends AppCompatActivity {
 
         //Button button=(Button) v;
         //((Button) v).setText("clicked");
-        MposUi ui = MposUi.initialize(this, ProviderMode.MOCK,
-                "merchantIdentifier", "merchantSecretKey");
+        //MposUi ui = MposUi.initialize(this, ProviderMode.MOCK,
+        //        "merchantIdentifier", "merchantSecretKey");
+
+        //MposUi ui = MposUi.initialize(this, ProviderMode.TEST,
+                //"merchantIdentifier", "merchantSecretKey");
+        MposUi ui = MposUi.initialize(this, ProviderMode.TEST,
+                merchantIdentifier, merchantSecretKey);
 
         ui.getConfiguration().setSummaryFeatures(EnumSet.of(
                 // Add this line, if you do want to offer printed receipts
@@ -49,9 +56,10 @@ public class MainActivity extends AppCompatActivity {
         );
 
         // Start with a mocked card reader:
-        AccessoryParameters accessoryParameters = new AccessoryParameters.Builder(AccessoryFamily.MOCK)
-                .mocked()
-                .build();
+        //AccessoryParameters accessoryParameters = new AccessoryParameters.Builder(AccessoryFamily.TEST)
+        //        .mocked()
+        //        .build();
+        AccessoryParameters accessoryParameters = new AccessoryParameters.Builder(AccessoryFamily.PAX).integrated().build();
         ui.getConfiguration().setTerminalParameters(accessoryParameters);
 
             // Add this line if you would like to collect the customer signature on the receipt (as opposed to the digital signature)
@@ -132,8 +140,11 @@ public class MainActivity extends AppCompatActivity {
         lastTransaction = MposUi.getInitializedInstance().getTransaction();
 
         //((Button) v).setText(lastTransaction.getIdentifier().toString());
-        MposUi ui = MposUi.initialize(this, ProviderMode.MOCK,
-                "merchantIdentifier", "merchantSecretKey");
+        // MposUi ui = MposUi.initialize(this, ProviderMode.MOCK,
+        //        "merchantIdentifier", "merchantSecretKey");
+
+        MposUi ui = MposUi.initialize(this, ProviderMode.TEST,
+                merchantIdentifier, merchantSecretKey);
 
         if(lastTransaction==null)
         {
