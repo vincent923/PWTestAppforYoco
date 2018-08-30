@@ -23,7 +23,7 @@ allprojects {
     repositories {
         jcenter()
         maven {
-            url "http://releases.payworks.io/artifactory/mpos"
+            url "http://releases.payworks.io/artifactory/mpos-staging"
         }
     }
 }
